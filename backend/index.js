@@ -27,6 +27,9 @@ app.use(cors({
     credentials: true
 }))
 
+app.use("/uploads", express.static("uploads"));
+
+
 
 app.use("/admin", carouselRouter)
 app.use("/admin/principal", principalImageRouter)
@@ -53,3 +56,4 @@ app.listen(PORT, (req, res) => {
     ConnectDb()
 
 })
+
