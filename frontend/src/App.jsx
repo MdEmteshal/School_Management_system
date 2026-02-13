@@ -22,7 +22,7 @@ import { useSelector } from 'react-redux'
 import SimpleSettings from './pages/edit_pages/ChangeSetting'
 import AdmissionEnquiryList from './pages/AddmissionEnquery'
 import ContactUsList from './pages/ContactUsList'
-export const backendUrl = "http://localhost:3000"
+export const backendUrl = "https://school-management-system-backendurl.onrender.com"
 function App() {
 
   getAdminDataHooks()
