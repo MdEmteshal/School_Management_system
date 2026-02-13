@@ -23,7 +23,7 @@ app.use(helmet())
 app.use(express.json())
 app.use(cookieparser())
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://abcschool.onrender.com",
     credentials: true
 }))
 
@@ -51,4 +51,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, (req, res) => {
     console.log("Start server successfully at PORT:3000!")
     ConnectDb()
+
 })
