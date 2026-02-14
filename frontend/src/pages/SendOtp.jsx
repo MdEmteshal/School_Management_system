@@ -9,14 +9,18 @@ export const SendOtpMessage = () => {
   const [msg, setMsg] = useState("");
 
   const handleSendOtp = async (e) => {
+     e.preventDefault();
     try {
       const res = await axios.post(backendUrl + "/admin/auth/sendotp", {
         email
       }, { withCredentials: true });
 
-      setMsg(res.data.message);
-      console.log(res.data)
-      navigate("/add-new-password")
+     console.log("SEND OTP RESPONSE:", res.data);
+    setMsg(res.data.message);
+
+    if (res.data.message === "OTP sent successfully") {
+      navigate("/add-new-password");
+    }
     } catch (error) {
         console.log("otp error",
                     error?.response?.data?.message
@@ -30,7 +34,7 @@ export const SendOtpMessage = () => {
 
   return (
     <div className="flex justify-center mt-20">
-      <form className="p-6 bg-white rounded shadow w-80" onSubmit={(e) => e.preventDefault()}>
+      <form className="p-6 bg-white rounded shadow w-80" onSubmit={handleSendOtp}>
         <h2 className="text-xl font-bold mb-3">Forgot Password</h2>
 
         <input
@@ -41,7 +45,7 @@ export const SendOtpMessage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button className="bg-blue-600 text-white w-full p-2 rounded" onClick={handleSendOtp} >
+        <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded">
           Send OTP
         </button>
 
@@ -50,6 +54,7 @@ export const SendOtpMessage = () => {
     </div>
   );
 };
+
 
 
 
