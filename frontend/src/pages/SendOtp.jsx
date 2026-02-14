@@ -53,7 +53,7 @@ export const SendOtpMessage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded">
+        <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded" disabled={loading}>
           {loading ? <ClipLoader size={30} color='white' /> : 'Send OTP'}
           Send OTP
         </button>
@@ -63,6 +63,7 @@ export const SendOtpMessage = () => {
     </div>
   );
 };
+
 
 
 
