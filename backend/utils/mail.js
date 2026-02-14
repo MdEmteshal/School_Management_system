@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer'
 
 
 const transpoter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.mailersend.net',
     port: 587,
     secure: false,
     auth: {
@@ -13,4 +13,5 @@ const transpoter = nodemailer.createTransport({
 })
 
 export default transpoter;
+
 
