@@ -12,13 +12,13 @@ export const SendOtpMessage = () => {
   
 
   const handleSendOtp = async (e) => {
-     e.preventDefault();
-    setLoading(true);
+   
     try {
+    setLoading(true);
+      
       const res = await axios.post(backendUrl + "/admin/auth/sendotp", {
         email
       }, { withCredentials: true });
-    setLoading(false);
       
 
      console.log("SEND OTP RESPONSE:", res.data);
@@ -42,7 +42,7 @@ export const SendOtpMessage = () => {
 
   return (
     <div className="flex justify-center mt-20">
-      <form className="p-6 bg-white rounded shadow w-80" onSubmit={handleSendOtp}>
+      <form className="p-6 bg-white rounded shadow w-80" onSubmit={(e)=> e.preventDefault()}>
         <h2 className="text-xl font-bold mb-3">Forgot Password</h2>
 
         <input
@@ -53,7 +53,7 @@ export const SendOtpMessage = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded" disabled={loading}>
+        <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded" disabled={loading} onClick={handleSendOtp}>
           {loading ? <ClipLoader size={30} color='white' /> : 'Send OTP'}
           Send OTP
         </button>
@@ -63,6 +63,7 @@ export const SendOtpMessage = () => {
     </div>
   );
 };
+
 
 
 
