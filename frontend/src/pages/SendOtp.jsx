@@ -18,6 +18,9 @@ export const SendOtpMessage = () => {
       console.log(res.data)
       navigate("/add-new-password")
     } catch (error) {
+        console.log("otp error",
+                    error?.response?.data?.message
+                )
       console.log("forgot password", error)
 
     }
@@ -47,5 +50,6 @@ export const SendOtpMessage = () => {
     </div>
   );
 };
+
 
 
