@@ -132,7 +132,7 @@ export const SendOtp = async (req, res) => {
     const message = `Your OTP is: <b>${otp}</b>. It is valid for 5 minutes.`
 
     const info = await transpoter.sendMail({
-      from: "'Hello'<mdemteshal123@gmail.com>",
+      from: "'Hello'<mdemteshal786@gmail.com>",
       to: email,
       subject: subject,
       html: message,
@@ -181,6 +181,7 @@ export const ResetPasswordWithOtp = async (req, res) => {
     res.status(500).json({ message: "Failed to reset password" });
   }
 };
+
 
 
 
