@@ -115,7 +115,7 @@ export const SendOtp = async (req, res) => {
 
     let user = await UserDB.findOne({ email });
     if (!user) return res.status(404).json({ message: "Email not found" });
-    if (user.emailVerified !=== true) {
+    if (user.emailVerified !== true) {
       return res.status(404).json({ message: "Email not varified" });
 
     }
@@ -181,6 +181,7 @@ export const ResetPasswordWithOtp = async (req, res) => {
     res.status(500).json({ message: "Failed to reset password" });
   }
 };
+
 
 
 
