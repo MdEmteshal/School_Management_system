@@ -1,19 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { backendUrl } from "../App"
+import { ClipLoader } from 'react-spinners';
 import { useNavigate } from "react-router";
 
 export const SendOtpMessage = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  
 
   const handleSendOtp = async (e) => {
      e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(backendUrl + "/admin/auth/sendotp", {
         email
       }, { withCredentials: true });
+    setLoading(false);
+      
 
      console.log("SEND OTP RESPONSE:", res.data);
     setMsg(res.data.message);
@@ -25,6 +31,8 @@ export const SendOtpMessage = () => {
         console.log("otp error",
                     error?.response?.data?.message
                 )
+    setLoading(false);
+      
       console.log("forgot password", error)
 
     }
@@ -46,6 +54,7 @@ export const SendOtpMessage = () => {
         />
 
         <button type="submit" className="bg-blue-600 text-white w-full p-2 rounded">
+          {loading ? <ClipLoader size={30} color='white' /> : 'Send OTP'}
           Send OTP
         </button>
 
@@ -54,6 +63,7 @@ export const SendOtpMessage = () => {
     </div>
   );
 };
+
 
 
 
