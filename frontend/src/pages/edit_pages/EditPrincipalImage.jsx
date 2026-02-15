@@ -235,12 +235,12 @@ export default function EditPrincipal() {
             <button
               type="submit"
               onClick={handleSave}
-              disabled={getimage?.length === 1}
+              disabled={loading || getimage?.length === 1}
               className={`w-full py-2 rounded-lg text-white font-semibold
             ${getimage?.length === 1
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-orange-500 hover:bg-orange-600"
-                }`} disabled={loading}
+                }`} 
             >
               {loading?<ClipLoader size={30} color="white"/> :" Save"}
               
@@ -314,6 +314,7 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
 
 
