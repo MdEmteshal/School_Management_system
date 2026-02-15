@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { backendUrl } from '../../App';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import {ClipLoader} from "react-spinners"
 import { useEffect } from 'react';
 export default function EditPrincipal() {
   const [principalImage, setPrincipalImage] = useState(null)
@@ -10,9 +11,11 @@ export default function EditPrincipal() {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [getimage, setGetImage] = useState([])
+  const [loading,setLoading]=useState(false)
 
   const handleGetPrincipalImage = async () => {
     try {
+     
       const result = await axios.get(backendUrl + "/admin/principal/getprincipal", { withCredentials: true })
       console.log(result.data)
       setGetImage(result.data)
@@ -39,6 +42,7 @@ export default function EditPrincipal() {
     formData.append("description", description)
 
     try {
+      setLoading(true)
       const result = await axios.post(backendUrl + "/admin/principal/uploadprincipal", formData, {
         headers: {
 
@@ -50,6 +54,7 @@ export default function EditPrincipal() {
       toast.success("Image  Upload")
       handleGetPrincipalImage()
     } catch (error) {
+      setLoading(false)
       console.log("principal Upload error",error)
        console.log("error principal Image Upload:",
                     error?.response?.data?.message
@@ -228,9 +233,10 @@ export default function EditPrincipal() {
             ${getimage?.length === 1
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-orange-500 hover:bg-orange-600"
-                }`}
+                }`} disabled={loading}
             >
-              Save
+              {loading?<ClipLoader size={30} color="white"/> :" Save"}
+              
             </button>
           </div>
         </form>
@@ -300,4 +306,5 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
