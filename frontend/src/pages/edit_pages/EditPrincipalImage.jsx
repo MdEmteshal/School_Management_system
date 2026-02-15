@@ -50,7 +50,11 @@ export default function EditPrincipal() {
       toast.success("Image  Upload")
       handleGetPrincipalImage()
     } catch (error) {
-      console.log(error)
+      console.log("principal Upload error",error)
+       console.log("error principal Image Upload:",
+                    error?.response?.data?.message
+                )
+      
       toast.error("Image Upload  failed")
 
     }
@@ -296,3 +300,4 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
