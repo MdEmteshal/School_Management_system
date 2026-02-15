@@ -12,6 +12,8 @@ export default function EditPrincipal() {
   const [description, setDescription] = useState("")
   const [getimage, setGetImage] = useState([])
   const [loading,setLoading]=useState(false)
+  const [updateloading,setUpdateLoading]=useState(false)
+  
 
   const handleGetPrincipalImage = async () => {
     try {
@@ -102,7 +104,7 @@ export default function EditPrincipal() {
       formData.append("image", updateImage)
     }
     try {
-      setLoading(true)
+      setUpdateLoading(true)
       const result = await axios.post(backendUrl + "/admin/principal/updateprincipal", formData,
         {
           headers: {
@@ -115,7 +117,7 @@ export default function EditPrincipal() {
       handleGetPrincipalImage()
       setOpen(false);
     } catch (error) {
-      setLoading(false)
+      setUpdateLoading(false)
       console.log({ error: error.message })
       toast.error("Image updated failed")
     }
@@ -297,9 +299,9 @@ export default function EditPrincipal() {
 
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg" disabled={loading}
+                className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg" disabled={updateloading}
               >
-                 {loading?<ClipLoader size={30} color="white"/> :" Update"}
+                 {updateloading?<ClipLoader size={30} color="white"/> :" Update"}
                 
               </button>
             </form>
@@ -309,6 +311,7 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
 
 
