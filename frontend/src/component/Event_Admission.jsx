@@ -13,7 +13,7 @@ const events = [
     id: 2,
     title: "Science Exhibition",
     desc: "Creative science models by students.",
-    img: "https://images.unsplash.com/photo-1581091870622-2c4c4c1f1b91",
+    img: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d",
   },
   {
     id: 3,
@@ -200,3 +200,4 @@ export default function EventAndAdmission() {
     </div>
   );
 }
+
