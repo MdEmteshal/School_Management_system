@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { HiArrowLeft } from "react-icons/hi";
+import {ClipLoader} from "react-spinners"
 
 export default function EditFaculty() {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [updateLoading,setUpdateLoading]=useState(false);
+  
 
   const [facultyImage, setFacultyImage] = useState(null);
   const [updateImage, setUpdateImage] = useState(null);
@@ -49,6 +53,7 @@ export default function EditFaculty() {
     formData.append("qualification", qualification);
 
     try {
+      setLoading(true)
       await axios.post(
         backendUrl + "/admin/faculty/uploadfaculty",
         formData,
@@ -61,6 +66,7 @@ export default function EditFaculty() {
       toast.success("Faculty Added Successfully");
       handleGetFaculty();
     } catch (error) {
+      setLoading(false)
       toast.error("Upload Failed");
     }
   };
@@ -93,6 +99,7 @@ export default function EditFaculty() {
     if (updateImage) formData.append("image", updateImage);
 
     try {
+      setUpdateLoading(true)
       await axios.post(
         backendUrl + "/admin/faculty/updatefaculty",
         formData,
@@ -103,9 +110,10 @@ export default function EditFaculty() {
       );
 
       toast.success("Updated Successfully");
-      setOpen(false);
       handleGetFaculty();
+      setOpen(false);
     } catch (error) {
+      setUpdateLoading(false)
       toast.error("Update Failed");
     }
   };
@@ -236,9 +244,10 @@ export default function EditFaculty() {
 
           <button
             onClick={handleSave}
-            className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg"
+            className="bg-orange-500 hover:bg-orange-600 text-white rounded-lg" disabled={loading}
           >
-            Save
+            {loading?<ClipLoader size={30} color="white"/>:"Save"}
+            
           </button>
         </form>
       </div>
@@ -308,9 +317,12 @@ export default function EditFaculty() {
 
               <button
                 type="submit"
+                disabled={updateLoading}
                 className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg"
               >
-                Update
+            {updateLoading?<ClipLoader size={30} color="white"/>:"Update"}
+                
+                
               </button>
             </form>
           </div>
@@ -319,3 +331,4 @@ export default function EditFaculty() {
     </div>
   );
 }
+
