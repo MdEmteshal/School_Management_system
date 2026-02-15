@@ -9,7 +9,7 @@ import {ClipLoader} from "react-spinners"
 export default function EditCarusel() {
   const navigate = useNavigate();
   const [loading,setLoading]=useState(false);
-  const [updateloading,setUpdateLoading]=useState(false);
+  const [updateLoading,setUpdateLoading]=useState(false);
   
 
   const [carouselImage, setCarouselImage] = useState(null);
@@ -243,4 +243,5 @@ export default function EditCarusel() {
     </div>
   );
 }
+
 
