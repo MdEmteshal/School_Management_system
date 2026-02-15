@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { HiArrowLeft } from "react-icons/hi";
+import {ClipLoader} from "react-spinners"
 
 export default function EditEvents() {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [updateLoading,setUpdateLoading]=useState(false);
+  
 
   const [eventsImage, setEventsImage] = useState(null);
   const [updateImage, setUpdateImage] = useState(null);
@@ -56,6 +60,7 @@ export default function EditEvents() {
     formData.append("description", description);
 
     try {
+      setLoading(true)
       await axios.post(
         backendUrl + "/admin/events/uploadevents",
         formData,
@@ -70,6 +75,7 @@ export default function EditEvents() {
       setDescription("");
       setEventsImage(null);
     } catch (error) {
+      setLoading(false)
       toast.error("Upload Failed");
     }
   }
@@ -96,6 +102,8 @@ export default function EditEvents() {
     if (updateImage) formData.append("image", updateImage);
 
     try {
+      setUpdateLoading(true)
+      
       await axios.post(
         backendUrl + "/admin/events/updateevents",
         formData,
@@ -108,6 +116,7 @@ export default function EditEvents() {
       handleGetEvents();
       setOpen(false);
     } catch (error) {
+      setUpdateLoading(false) 
       toast.error("Update Failed");
     }
   };
@@ -229,8 +238,9 @@ export default function EditEvents() {
         <button
           type="submit"
           className="bg-green-500 hover:bg-green-600 text-white rounded"
-        >
-          Save
+       disabled={loading} >
+          {loading? <ClipLoader size={30} color="white"/>:"Save"}
+          
         </button>
       </form>
 
@@ -285,9 +295,11 @@ export default function EditEvents() {
 
               <button
                 type="submit"
-                className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded"
+                className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded" disabled={updateLoading}
               >
-                Update
+          {updateLoading? <ClipLoader size={30} color="white"/>:"Update"}
+                
+                
               </button>
             </form>
           </div>
@@ -296,4 +308,5 @@ export default function EditEvents() {
     </div>
   );
 }
+
 
