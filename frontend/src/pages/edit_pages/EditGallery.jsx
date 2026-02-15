@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { HiArrowLeft } from "react-icons/hi";
 import { useNavigate } from "react-router";
+import {ClipLoader} from "react-spinners"
 
 export default function EditGallery() {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [updateLoading,setUpdateLoading]=useState(false);
+  
 
   const [galleryImage, setGalleryImage] = useState(null);
   const [updateImage, setUpdateImage] = useState(null);
@@ -63,6 +67,7 @@ export default function EditGallery() {
     formData.append("description", description);
 
     try {
+      setLoading(true)
       await axios.post(
         backendUrl + "/admin/gallery/uploadgallery",
         formData,
@@ -77,6 +82,7 @@ export default function EditGallery() {
       setGalleryImage(null);
       handleGetGallery();
     } catch (error) {
+      setLoading(false)
       toast.error("Image Upload Failed");
     }
   }
@@ -108,6 +114,7 @@ export default function EditGallery() {
     }
 
     try {
+      setUpdateLoading(true)
       await axios.post(
         backendUrl + "/admin/gallery/updategallery",
         formData,
@@ -120,6 +127,7 @@ export default function EditGallery() {
       setOpen(false);
       handleGetGallery();
     } catch (error) {
+      setUpdateLoading(false)
       toast.error("Update Failed");
     }
   };
@@ -244,9 +252,10 @@ export default function EditGallery() {
 
           <button
             type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg md:col-span-2"
+            className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg md:col-span-2" disabled={loading}
           >
-            Save
+            {loading? <ClipLoader size={30} color="white"/>:"Save"}
+            
           </button>
         </form>
       </div>
@@ -301,9 +310,10 @@ export default function EditGallery() {
 
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded"
+                className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded" disabled={updateLoading}
               >
-                Update
+                  {updateLoading? <ClipLoader size={30} color="white"/>:"Update"}
+                
               </button>
             </form>
           </div>
@@ -312,3 +322,4 @@ export default function EditGallery() {
     </div>
   );
 }
+
