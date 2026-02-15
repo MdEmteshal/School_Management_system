@@ -3,7 +3,12 @@ import { backendUrl } from '../../App';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useEffect } from 'react';
+import {ClipLoader} from "react-spinners"
+
 export default function EditStudentTopper() {
+  const [loading,setLoading]=useState(false);
+  const [updateLoading,setUpdateLoading]=useState(false);
+  
   const [studentImage, setStudentImage] = useState(null)
   const [updateImage, setUpdateImage] = useState(null)
 
@@ -86,6 +91,7 @@ export default function EditStudentTopper() {
 
 
     try {
+      setLoading(true);
       const result = await axios.post(backendUrl + "/admin/studenttopper/uploadstudenttopper", formData, {
         headers: {
 
@@ -97,6 +103,7 @@ export default function EditStudentTopper() {
       toast.success("Image  Upload")
       handleGetStudentTopper()
     } catch (error) {
+      setLoading(false);
       console.log(error)
       toast.error("Image Upload  failed")
 
@@ -131,7 +138,7 @@ export default function EditStudentTopper() {
 
   const handleUpdate = async (id) => {
 
-    setOpen(false);
+    
     const formData = new FormData();
     formData.append("id", id);
     formData.append("name", name)
@@ -144,6 +151,7 @@ export default function EditStudentTopper() {
       formData.append("image", updateImage)
     }
     try {
+      setUpdateLoading(true);
       const result = await axios.post(backendUrl + "/admin/studenttopper/updatestudenttopper", formData,
         {
           headers: {
@@ -153,8 +161,10 @@ export default function EditStudentTopper() {
         })
       console.log("updated student Topper successfully", result.data)
       toast.success("student topper Image updated successfully")
-      handleGetStudentTopper()
+      handleGetStudentTopper();
+      setOpen(false);
     } catch (error) {
+      setUpdateLoading(false);
       console.log({ error: error.message })
       toast.error("Image updated failed")
     }
@@ -336,9 +346,10 @@ export default function EditStudentTopper() {
               <div className="col-span-2 md:col-span-3">
                 <button
                   onClick={handleSave}
-                  className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded w-full text-sm"
+                  className="bg-orange-500 hover:bg-orange-600 text-white py-2 rounded w-full text-sm" disabled={loading}
                 >
-                  Save Student
+                  {loading? <ClipLoader size={30} color="white"/>:"Save Student"}
+                  
                 </button>
               </div>
             </form>
@@ -416,9 +427,10 @@ export default function EditStudentTopper() {
 
                   <button
                     type="submit"
-                    className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg"
+                    className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg" disabled={updateLoading}
                   >
-                    Update
+                     {updateLoading? <ClipLoader size={30} color="white"/>:"Update"}
+                    
                   </button>
                 </form>
               </div>
@@ -434,3 +446,4 @@ export default function EditStudentTopper() {
 
   )
 }
+
