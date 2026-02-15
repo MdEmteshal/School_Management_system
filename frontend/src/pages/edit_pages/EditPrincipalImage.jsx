@@ -297,7 +297,7 @@ export default function EditPrincipal() {
 
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg"
+                className="bg-orange-500 hover:bg-orange-600 text-white w-full py-2 rounded-lg" disabled={loading}
               >
                  {loading?<ClipLoader size={30} color="white"/> :" Update"}
                 
@@ -309,6 +309,7 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
 
 
