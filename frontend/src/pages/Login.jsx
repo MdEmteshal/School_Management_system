@@ -5,6 +5,8 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setAdminData } from "../redux/adminSlice";
 import { HiArrowLeft } from "react-icons/hi";   // 👈 add this
+import {ClipLoader} from "react-spinners"
+
 
 export default function Login() {
   const navigate = useNavigate();
@@ -12,12 +14,15 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage("");
 
     try {
+      setLoading(true)
       const res = await axios.post(
         backendUrl + "/admin/auth/login",
         {
@@ -32,6 +37,7 @@ export default function Login() {
       dispatch(setAdminData(res.data));
       navigate("/change-settings");
     } catch (error) {
+      setLoading(false)
       setMessage(error.response?.data?.message || "Login failed");
       dispatch(setAdminData(null));
     }
@@ -79,9 +85,9 @@ export default function Login() {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600"
+          className="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600" disabled={loading}
         >
-          Login
+          {loading? <ClipLoader size={30} color="white"/>: "Login"}  
         </button>
         {/* 👇 Forgot Password */}
         <p
@@ -100,4 +106,5 @@ export default function Login() {
     </div>
   );
 }
+
 
