@@ -54,8 +54,10 @@ export default function EditCarusel() {
       toast.success("Image Upload");
       handleGetCarouselImage();
     } catch (error) {
-      setLoading(false)
       toast.error("Image Upload failed");
+    } finally{
+      setLoading(false)
+      
     }
   }
 
@@ -243,6 +245,7 @@ export default function EditCarusel() {
     </div>
   );
 }
+
 
 
 
