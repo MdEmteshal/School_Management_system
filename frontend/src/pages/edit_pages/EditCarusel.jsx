@@ -55,11 +55,9 @@ export default function EditCarusel() {
       handleGetCarouselImage();
       setLoading(false)
     } catch (error) {
-      toast.error("Image Upload failed");
-    } finally{
       setLoading(false)
-      
-    }
+      toast.error("Image Upload failed");
+    } 
   }
 
   const handleDelete = async (id) => {
@@ -247,6 +245,7 @@ export default function EditCarusel() {
     </div>
   );
 }
+
 
 
 
