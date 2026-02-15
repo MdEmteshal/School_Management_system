@@ -56,7 +56,6 @@ export default function EditPrincipal() {
       toast.success("Image  Upload")
       handleGetPrincipalImage()
     } catch (error) {
-      setLoading(false)
       console.log("principal Upload error",error)
        console.log("error principal Image Upload:",
                     error?.response?.data?.message
@@ -64,7 +63,9 @@ export default function EditPrincipal() {
       
       toast.error("Image Upload  failed")
 
-    }
+    }finally {
+    setLoading(false); 
+  }
 
   }
 
@@ -117,10 +118,12 @@ export default function EditPrincipal() {
       handleGetPrincipalImage()
       setOpen(false);
     } catch (error) {
-      setUpdateLoading(false)
+     
       console.log({ error: error.message })
       toast.error("Image updated failed")
-    }
+    }finally {
+  setUpdateLoading(false);
+  }
   };
 
   return (
@@ -311,6 +314,7 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
 
 
