@@ -11,7 +11,7 @@ const galleryData = [
   },
   {
     id: 2,
-    img: "https://images.unsplash.com/photo-1600442715817-7a4f9b5c47f5",
+    img: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f",
     title: "Sports Day",
     desc: "Exciting sports events and activities",
   },
@@ -140,3 +140,4 @@ export default function SchoolGallery() {
     </div>
   );
 }
+
