@@ -93,7 +93,6 @@ export default function EditPrincipal() {
 
   const handleUpdate = async (id) => {
 
-    setOpen(false);
     const formData = new FormData();
     formData.append("id", id);
     formData.append("name", name)
@@ -114,6 +113,7 @@ export default function EditPrincipal() {
       console.log("updated carousel successfully", result.data)
       toast.success("Image updated successfully")
       handleGetPrincipalImage()
+      setOpen(false);
     } catch (error) {
       setLoading(false)
       console.log({ error: error.message })
@@ -309,6 +309,7 @@ export default function EditPrincipal() {
     </div>
   )
 }
+
 
 
 
