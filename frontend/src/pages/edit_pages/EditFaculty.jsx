@@ -65,6 +65,7 @@ export default function EditFaculty() {
 
       toast.success("Faculty Added Successfully");
       handleGetFaculty();
+      setLoading(false)
     } catch (error) {
       setLoading(false)
       toast.error("Upload Failed");
@@ -112,6 +113,7 @@ export default function EditFaculty() {
       toast.success("Updated Successfully");
       handleGetFaculty();
       setOpen(false);
+      setUpdateLoading(false)
     } catch (error) {
       setUpdateLoading(false)
       toast.error("Update Failed");
@@ -331,4 +333,5 @@ export default function EditFaculty() {
     </div>
   );
 }
+
 
