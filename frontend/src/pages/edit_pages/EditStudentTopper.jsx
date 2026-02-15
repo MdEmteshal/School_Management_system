@@ -102,6 +102,7 @@ export default function EditStudentTopper() {
       console.log(result.data)
       toast.success("Image  Upload")
       handleGetStudentTopper()
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error)
@@ -163,6 +164,7 @@ export default function EditStudentTopper() {
       toast.success("student topper Image updated successfully")
       handleGetStudentTopper();
       setOpen(false);
+      setUpdateLoading(false);
     } catch (error) {
       setUpdateLoading(false);
       console.log({ error: error.message })
@@ -446,4 +448,5 @@ export default function EditStudentTopper() {
 
   )
 }
+
 
