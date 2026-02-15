@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { HiArrowLeft } from "react-icons/hi";
+import {ClipLoader} from "react-spinners"
 
 export default function EditCarusel() {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false);
+  const [updateloading,setUpdateLoading]=useState(false);
+  
 
   const [carouselImage, setCarouselImage] = useState(null);
   const [updateImage, setUpdateImage] = useState(null);
@@ -38,6 +42,7 @@ export default function EditCarusel() {
     }
 
     try {
+      setLoading(true)
       await axios.post(
         backendUrl + "/admin/uploadcarousel",
         formData,
@@ -49,6 +54,7 @@ export default function EditCarusel() {
       toast.success("Image Upload");
       handleGetCarouselImage();
     } catch (error) {
+      setLoading(false)
       toast.error("Image Upload failed");
     }
   }
@@ -68,7 +74,7 @@ export default function EditCarusel() {
   };
 
   const handleUpdate = async (id) => {
-    setOpen(false);
+    
     const formData = new FormData();
     formData.append("id", id);
     if (updateImage) {
@@ -76,6 +82,7 @@ export default function EditCarusel() {
     }
 
     try {
+      setUpdateLoading(true)
       await axios.post(
         backendUrl + "/admin/updatecarousel",
         formData,
@@ -86,7 +93,9 @@ export default function EditCarusel() {
       );
       toast.success("Image updated successfully");
       handleGetCarouselImage();
+      setOpen(false);
     } catch (error) {
+      setUpdateLoading(false)
       toast.error("Image updated failed");
     }
   };
@@ -171,14 +180,15 @@ export default function EditCarusel() {
 
             <button
               onClick={handleSave}
-              disabled={getimage?.length === 3}
+              disabled={loading || getimage?.length === 3}
               className={`px-6 py-2 rounded-lg text-white transition w-full md:w-auto
                 ${getimage?.length === 3
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-green-500 hover:bg-green-600"
                 }`}
             >
-              Save
+              {loading? <ClipLoader size={30} color="white"/>:"Save"}
+              
             </button>
           </div>
         </div>
@@ -219,9 +229,11 @@ export default function EditCarusel() {
 
                 <button
                   type="submit"
-                  className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-lg"
+                  className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-lg" disable={updateLoading}
                 >
-                  Upadte
+              {updateloading? <ClipLoader size={30} color="white"/>:"Upadte"}
+                  
+                  
                 </button>
               </form>
             </div>
@@ -231,3 +243,4 @@ export default function EditCarusel() {
     </div>
   );
 }
+
