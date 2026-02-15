@@ -8,9 +8,17 @@ export const uploadEventsImage = async (req, res) => {
     let uploadedImage = null;
     let public_id = null;
     if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: `School_Management/Events_Image`
-      });
+      // const result = await cloudinary.uploader.upload(req.file.path, {
+      //   folder: `School_Management/Events_Image`
+      // });
+
+
+             const result = await cloudinary.uploader.upload(
+      `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`,
+      {
+       folder: `School_Management/Events_Image`,
+      }
+    );
       uploadedImage = result.secure_url; // URL mil gaya
       public_id = result.public_id
     }
@@ -119,9 +127,18 @@ export const updateEventsImage = async (req, res) => {
     let uploadedImage = null;
     let public_id = null;
     if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: `School_Management/Events_Image`
-      });
+      // const result = await cloudinary.uploader.upload(req.file.path, {
+      //   folder: `School_Management/Events_Image`
+      // });
+
+              const result = await cloudinary.uploader.upload(
+      `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`,
+      {
+       folder: `School_Management/Events_Image`,
+      }
+    );
+
+      
       uploadedImage = result.secure_url; // URL mil gaya
       public_id = result.public_id
     }
@@ -144,4 +161,5 @@ export const updateEventsImage = async (req, res) => {
     res.status(500).json({ message: "Update failed" });
   }
 };
+
 
