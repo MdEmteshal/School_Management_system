@@ -231,7 +231,7 @@ export default function EditCarusel() {
                   type="submit"
                   className="bg-green-500 hover:bg-green-600 text-white w-full py-2 rounded-lg" disable={updateLoading}
                 >
-              {updateloading? <ClipLoader size={30} color="white"/>:"Upadte"}
+              {updateLoading? <ClipLoader size={30} color="white"/>:"Upadte"}
                   
                   
                 </button>
@@ -243,5 +243,6 @@ export default function EditCarusel() {
     </div>
   );
 }
+
 
 
