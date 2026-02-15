@@ -81,6 +81,8 @@ export default function EditGallery() {
       setDescription("");
       setGalleryImage(null);
       handleGetGallery();
+      setLoading(false)
+      
     } catch (error) {
       setLoading(false)
       toast.error("Image Upload Failed");
@@ -126,6 +128,7 @@ export default function EditGallery() {
       toast.success("Image Updated Successfully");
       setOpen(false);
       handleGetGallery();
+      setUpdateLoading(false)
     } catch (error) {
       setUpdateLoading(false)
       toast.error("Update Failed");
@@ -322,4 +325,5 @@ export default function EditGallery() {
     </div>
   );
 }
+
 
