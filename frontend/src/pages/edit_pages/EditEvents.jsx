@@ -74,6 +74,7 @@ export default function EditEvents() {
       setTitle("");
       setDescription("");
       setEventsImage(null);
+      setLoading(false)
     } catch (error) {
       setLoading(false)
       toast.error("Upload Failed");
@@ -115,6 +116,7 @@ export default function EditEvents() {
       toast.success("Updated Successfully");
       handleGetEvents();
       setOpen(false);
+      setUpdateLoading(false)
     } catch (error) {
       setUpdateLoading(false) 
       toast.error("Update Failed");
@@ -308,5 +310,6 @@ export default function EditEvents() {
     </div>
   );
 }
+
 
 
